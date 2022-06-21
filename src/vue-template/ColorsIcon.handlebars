@@ -50,9 +50,8 @@ export default {
               content:
                 {{#each child}}
                   `<path d="{{d}}"
-                    fill="${getIconColor({{@index}}, "{{fill}}")}"></path>` +
+                    fill="${getIconColor({{@index}}, "{{fill}}")}"></path>` {{#if @last}}+{{else}},{{/if}}
                 {{/each}}
-                "",
             };
         {{/each}}
         default:
