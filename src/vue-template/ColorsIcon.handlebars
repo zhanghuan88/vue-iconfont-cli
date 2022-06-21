@@ -44,15 +44,14 @@ export default {
       };
       switch (this.name) {
         {{#each icons}}
-          case "{{name}}":
-            return {
-              viewBox: "{{viewBox}}",
-              content:
-                {{#each child}}
-                  `<path d="{{d}}"
-                    fill="${getIconColor({{@index}}, "{{fill}}")}"></path>` {{#if @last}}+{{else}},{{/if}}
-                {{/each}}
-            };
+        case "{{name}}":
+          return {
+            viewBox: "{{viewBox}}",
+              {{#each child}}
+            {{#if @first}}content: `{{else}}          {{/if}}<path d="{{d}}"
+                       fill="${getIconColor({{@index}}, "{{fill}}")}"></path>{{#if @last}}`,{{/if}}
+              {{/each}}
+          };
         {{/each}}
         default:
           return {
