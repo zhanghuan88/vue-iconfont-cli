@@ -1,9 +1,10 @@
 {
   "name": "@z363416071/vue-iconfont-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "rm -rf lib && tsc && cp -f -r src/vue-template lib/vue-template",
     "iconfont": " ts-node ./src/commands/help.ts",
     "iconfont-init": "ts-node ./src/commands/createJson.ts",
     "iconfont-h5": "ts-node ./src/commands/createIcon.ts",
