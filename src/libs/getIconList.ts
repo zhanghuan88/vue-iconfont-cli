@@ -5,7 +5,7 @@ import * as cheerio from "cheerio";
 import camelCase from "camelcase";
 import { CheerioAPI, Element } from "cheerio";
 import { Iconfont, IconfontChild, IconfontConfig } from "./projectType";
-import { filterPathIsEmpty } from "./util";
+import { filterPathIsEmpty, getPathEmptyOr } from "./util";
 
 export default async function getIconListByUrl(config: IconfontConfig): Promise<Iconfont[]> {
   const [, res] = await to(axios.get<string>(config.symbol_url));
@@ -21,13 +21,13 @@ export default async function getIconListByUrl(config: IconfontConfig): Promise<
       camelCase
     );
     // 获取图标的属性
-    const getViewBox: (element: Element) => string = R.pipe(R.pathOr("", ["attribs", "viewBox"]));
+    const getViewBox: (element: Element) => string = R.pipe(getPathEmptyOr("0 0 1024 1024", ["attribs", "viewBox"]));
 
     // path Element数组转成IconfontChild数组
     const mapIconfontChild = R.map(
       R.applySpec({
         d: R.path(["attribs", "d"]),
-        fill: R.pathOr("currentColor", ["attribs", "fill"]),
+        fill: getPathEmptyOr("currentColor", ["attribs", "fill"]),
       })
     );
     // 获取图标的path数组
