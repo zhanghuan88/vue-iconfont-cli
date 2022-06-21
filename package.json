@@ -1,9 +1,12 @@
 {
-  "name": "vue-iconfont-cli",
-  "version": "1.0.0",
+  "name": "@z363416071/vue-iconfont-cli",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "iconfont": " ts-node ./src/commands/help.ts",
+    "iconfont-init": "ts-node ./src/commands/createJson.ts",
+    "iconfont-h5": "ts-node ./src/commands/createIcon.ts",
     "prepare": "husky install"
   },
   "keywords": [
@@ -15,24 +18,47 @@
   ],
   "author": "张焕 <363416071@qq.com>",
   "license": "MIT",
+  "bin": {
+    "iconfont": "./lib/commands/help.js",
+    "iconfont-init": "./lib/commands/createJson.js",
+    "iconfont-h5": "./lib/commands/createIcon.js"
+  },
   "peerDependencies": {
     "vue": "*"
   },
   "devDependencies": {
-    "@types/node": "^17.0.35",
-    "eslint": "^8.2.0",
-    "eslint-config-airbnb-base": "15.0.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^18.0.0",
+    "@types/ramda": "^0.28.14",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
-    "lint-staged": "^12.4.1",
-    "prettier": "^2.6.2",
-    "typescript": "^4.6.4"
+    "lint-staged": "^13.0.2",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.8.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
   },
   "lint-staged": {
-    "src/**/*.{js,ts,json}": [
-      "prettier --write",
+    "src/**/*.{js,ts}": [
+      "prettier --write .",
       "eslint --fix"
     ]
+  },
+  "dependencies": {
+    "await-to-js": "^3.0.0",
+    "axios": "^0.27.2",
+    "camelcase": "^6.3.0",
+    "chalk": "^4.1.2",
+    "cheerio": "1.0.0-rc.11",
+    "fs-extra": "^10.1.0",
+    "handlebars": "^4.7.7",
+    "ramda": "^0.28.0"
   }
 }

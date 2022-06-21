@@ -1,0 +1,9 @@
+/src/
+/.husky/
+/.idea/
+/.eslintrc.js
+/.prettierrc.json
+/publish.sh
+/tsconfig.eslint.json
+/tsconfig.json
+/iconfont.json
