@@ -1,4 +1,5 @@
 import { join, resolve } from "node:path";
+import R from "ramda";
 import { mkdirSync, readFileSync, writeFileSync } from "fs";
 import * as handlebars from "handlebars";
 import { Iconfont, IconfontConfig } from "./projectType";
@@ -19,6 +20,7 @@ function getTemplate(iconfontConfig: IconfontConfig) {
 }
 
 export default function generateIconfontFile(icons: Iconfont[], iconfontConfig: IconfontConfig) {
+  if (R.isEmpty(icons)) return;
   const template = getTemplate(iconfontConfig);
   const content = template({
     size: iconfontConfig.default_icon_size,

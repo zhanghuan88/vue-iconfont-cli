@@ -2,6 +2,7 @@ export type IconfontConfig = {
   symbol_url: string;
   use_typescript: boolean;
   is_vue2: boolean;
+  local_icon_dir: string;
   save_dir: string;
   trim_icon_prefix: string;
   unit: string;

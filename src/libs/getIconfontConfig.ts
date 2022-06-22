@@ -24,6 +24,7 @@ export default (path: string): IconfontConfig => {
   return {
     symbol_url: replace(/^(https?:)?\/\//, "https://", config.symbol_url as string),
     use_typescript: config.use_typescript ?? defaultIconFont.use_typescript,
+    local_icon_dir: config.local_icon_dir ?? defaultIconFont.local_icon_dir,
     save_dir: config.save_dir ?? defaultIconFont.save_dir,
     trim_icon_prefix: config.trim_icon_prefix ?? defaultIconFont.trim_icon_prefix,
     unit: config.unit ?? defaultIconFont.unit,
