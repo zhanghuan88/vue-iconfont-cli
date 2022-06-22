@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import R, { Path } from "ramda";
+import { readFileSync } from "fs";
 
 export function successLog(msg: string) {
   console.log(chalk.green(msg));
@@ -16,3 +17,4 @@ export const filterPathIsEmpty = (path: Path) => R.filter(R.pipe(R.path(path), R
 // 返回 获取路径上的值,为空返回默认值函数
 export const getPathEmptyOr: <T>(defaultValue: T, path: Path) => (args: any) => T = <T>(defaultValue: T, path: Path) =>
   R.pipe(R.path<T>(path), R.when<any, T>(isEmpty, R.always(defaultValue)));
+export const getFileContent: (url: string) => string = R.pipe(readFileSync, R.invoker(0, "toString"));

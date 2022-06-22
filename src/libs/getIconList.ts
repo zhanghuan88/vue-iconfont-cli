@@ -6,8 +6,8 @@ import { CheerioAPI, Element } from "cheerio";
 import camelCase from "camelcase";
 import { existsSync } from "node:fs";
 import { join, parse, resolve } from "node:path";
-import { Dirent, readdirSync, readFileSync, statSync } from "fs";
-import { filterPathIsEmpty, getPathEmptyOr } from "./util";
+import { Dirent, readdirSync, statSync } from "fs";
+import { filterPathIsEmpty, getFileContent, getPathEmptyOr } from "./util";
 import { Iconfont, IconfontChild, IconfontConfig } from "./projectType";
 
 // path Element数组转成IconfontChild数组
@@ -46,7 +46,7 @@ function getDirFile(dir: string): any[] {
 
 // 获取svg文件部分内容
 function getIconByFile(fileUrl: string): Pick<Iconfont, "viewBox" | "child"> {
-  const svg = R.pipe(readFileSync, R.invoker(0, "toString"), cheerio.load)(fileUrl)("svg");
+  const svg = R.pipe(getFileContent, cheerio.load)(fileUrl)("svg");
   return {
     viewBox: getViewBox(svg[0]),
     child: getChildList(svg[0]),
@@ -56,6 +56,7 @@ function getIconByFile(fileUrl: string): Pick<Iconfont, "viewBox" | "child"> {
 // 根据svg件获取icon
 function dirIcons(config: IconfontConfig) {
   const localIcons: Iconfont[] = [];
+  if (config.local_icon_dir === "") return localIcons;
   const fileUrls: string[] = R.pipe(resolve, getDirFile, R.flatten)(config.local_icon_dir);
   R.forEach((file) => {
     const fileInfo = parse(file);

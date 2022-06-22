@@ -1,22 +1,27 @@
 import { join, resolve } from "node:path";
 import R from "ramda";
-import { mkdirSync, readFileSync, writeFileSync } from "fs";
+import { mkdirSync, writeFileSync } from "fs";
 import * as handlebars from "handlebars";
 import { Iconfont, IconfontConfig } from "./projectType";
+import { getFileContent } from "./util";
 
 function getTemplate(iconfontConfig: IconfontConfig) {
-  let content;
+  let url: string;
   if (iconfontConfig.is_vue2) {
     if (iconfontConfig.use_typescript) {
-      throw Error("not support typescript");
+      url = "../vue-template/vue2_typescript.handlebars";
     } else {
-      const fileName = join(__dirname, "../vue-template/ColorsIcon.handlebars");
-      content = readFileSync(fileName).toString();
+      url = "../vue-template/vue2.handlebars";
     }
   } else {
     throw Error("not support vue3");
   }
-  return handlebars.compile(content);
+  return R.pipe(
+    R.useWith<string, string, string, string, string>(join, [R.identity, R.identity]),
+    getFileContent,
+    handlebars.compile
+  )(__dirname, url);
+  // return handlebars.compile(content);
 }
 
 export default function generateIconfontFile(icons: Iconfont[], iconfontConfig: IconfontConfig) {

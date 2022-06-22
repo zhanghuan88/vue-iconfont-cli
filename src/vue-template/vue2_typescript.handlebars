@@ -1,0 +1,59 @@
+<template>
+  <svg :viewBox="svg.viewBox" :style="style" v-bind="$attrs" v-on="$listeners" v-html="svg.content"></svg>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+
+@Component
+export default class ColorsIcon extends Vue {
+  @Prop({ default: 18 }) private size!: number;
+
+  @Prop({ default: 'px' }) private unit!: string;
+
+  @Prop({ required: true }) private name!: string;
+
+  @Prop() private colors?: string;
+
+  get style() {
+    return {
+      width: `${this.size}${this.unit}`,
+      height: `${this.size}${this.unit}`,
+      fill: "currentColor",
+    };
+  }
+
+  get svg() {
+    const getIconColor = (index: number, defaultColor: string) => {
+      if (typeof this.colors === 'string') {
+        return this.colors || defaultColor;
+      }
+      if (
+        this.colors
+        && Object.prototype.toString.call(this.colors) === '[object Array]'
+        && typeof this.colors[index] === 'string'
+      ) {
+        return this.colors[index] || defaultColor;
+      }
+      return defaultColor;
+    };
+    switch (this.name) {
+      {{#each icons}}
+        case "{{name}}":
+          return {
+            viewBox: "{{viewBox}}",
+            {{#each child}}
+              {{#if @first}}content: `{{else}}          {{/if}}<path d="{{d}}"
+                       fill="${getIconColor({{@index}}, "{{fill}}")}"></path>{{#if @last}}`,{{/if}}
+            {{/each}}
+          };
+      {{/each}}
+      default:
+        return {
+          viewBox: "0 0 1024 1024",
+          content: "",
+        };
+    }
+  }
+};
+</script>
