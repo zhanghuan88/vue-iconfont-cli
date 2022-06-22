@@ -4,8 +4,7 @@ import { readJSONSync } from "fs-extra";
 import defaultIconFont from "../config-template/iconfont.json";
 import { IconfontConfig } from "./projectType";
 
-// @ts-ignore
-const checkSymbolUrl: (str?: string) => boolean = test(/^(https?:)?\/\//);
+const checkSymbolUrl: (str: string) => boolean = test(/^(https?:)?\/\//);
 
 let cacheIconFontConfig: IconfontConfig;
 
@@ -18,7 +17,7 @@ export default (path: string): IconfontConfig => {
   // 读取文件
   const config = readJSONSync(path) as Partial<IconfontConfig>;
   // 校验文件是否合法
-  if (!checkSymbolUrl(config.symbol_url)) {
+  if (!checkSymbolUrl(config.symbol_url!)) {
     throw Error(`symbol_url is not valid`);
   }
   return {
