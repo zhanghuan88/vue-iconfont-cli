@@ -1,6 +1,6 @@
 {
   "name": "@z363416071/vue-iconfont-cli",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,11 @@
   ],
   "author": "张焕 <363416071@qq.com>",
   "license": "MIT",
+  "repository": "git@github.com:zhanghuan88/vue-iconfont-cli.git",
+  "bugs": {
+    "url": "https://github.com/zhanghuan88/vue-iconfont-cli/issues",
+    "email": "z363416071@163.com"
+  },
   "bin": {
     "iconfont": "./lib/commands/help.js",
     "iconfont-init": "./lib/commands/createJson.js",
