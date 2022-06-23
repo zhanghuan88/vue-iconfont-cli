@@ -63,7 +63,7 @@ function dirIcons(config: IconfontConfig) {
     if (fileInfo.ext === ".svg") {
       const icon: Iconfont = R.mergeLeft(
         {
-          name: fileInfo.name,
+          name: camelCase(fileInfo.name),
         },
         getIconByFile(file)
       );

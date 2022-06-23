@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 import getIconfontConfig from "../libs/getIconfontConfig";
-import { errorLog, warnLog } from "../libs/util";
+import { errorLog, successLog, warnLog } from "../libs/util";
 import getIconList from "../libs/getIconList";
 import generateIconfontFile from "../libs/generateIconfontFile";
 
@@ -11,6 +11,7 @@ const generateIconfont = async () => {
     warnLog("icons is empty");
   }
   generateIconfontFile(icons, iconfontConfig);
+  successLog("generate success");
 };
 generateIconfont()
   .then()
