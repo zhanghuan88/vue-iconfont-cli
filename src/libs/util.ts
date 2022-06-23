@@ -9,6 +9,9 @@ export function successLog(msg: string) {
 export function errorLog(msg: string) {
   console.error(chalk.red(msg));
 }
+export function warnLog(msg: string) {
+  console.warn(chalk.magenta(msg));
+}
 
 // null undefined 当前类型空值返回true
 export const isEmpty = R.either(R.isNil, R.isEmpty);

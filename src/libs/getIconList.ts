@@ -7,7 +7,7 @@ import camelCase from "camelcase";
 import { existsSync } from "node:fs";
 import { join, parse, resolve } from "node:path";
 import { Dirent, readdirSync, statSync } from "fs";
-import { filterPathIsEmpty, getFileContent, getPathEmptyOr } from "./util";
+import { filterPathIsEmpty, getFileContent, getPathEmptyOr, warnLog } from "./util";
 import { Iconfont, IconfontChild, IconfontConfig } from "./projectType";
 
 // path Element数组转成IconfontChild数组
@@ -72,6 +72,9 @@ function dirIcons(config: IconfontConfig) {
       }
     }
   }, fileUrls);
+  if (R.isEmpty(localIcons)) {
+    warnLog("local_dir is empty!");
+  }
   return localIcons;
 }
 
@@ -104,6 +107,7 @@ async function urlIcons(config: IconfontConfig) {
     );
     return iconList(children);
   }
+  warnLog("url is empty!");
   return [];
 }
 
