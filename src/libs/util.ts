@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import R, { Path } from "ramda";
 import { readFileSync } from "fs";
+import camelcase from "camelcase";
 
 export function successLog(msg: string) {
   console.log(chalk.green(msg));
@@ -12,7 +13,9 @@ export function errorLog(msg: string) {
 export function warnLog(msg: string) {
   console.warn(chalk.magenta(msg));
 }
-
+export function myCamelcase(msg: string) {
+  return camelcase(msg, { preserveConsecutiveUppercase: true });
+}
 // null undefined 当前类型空值返回true
 export const isEmpty = R.either(R.isNil, R.isEmpty);
 // 返回 过滤掉某属性为空的函数

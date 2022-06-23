@@ -3,11 +3,10 @@ import axios from "axios";
 import R from "ramda";
 import * as cheerio from "cheerio";
 import { CheerioAPI, Element } from "cheerio";
-import camelCase from "camelcase";
 import { existsSync } from "node:fs";
 import { join, parse, resolve } from "node:path";
 import { Dirent, readdirSync, statSync } from "fs";
-import { filterPathIsEmpty, getFileContent, getPathEmptyOr, warnLog } from "./util";
+import { filterPathIsEmpty, getFileContent, getPathEmptyOr, myCamelcase, warnLog } from "./util";
 import { Iconfont, IconfontChild, IconfontConfig } from "./projectType";
 
 // path Element数组转成IconfontChild数组
@@ -25,7 +24,7 @@ const getChildList: (ele: Element) => IconfontChild[] = R.pipe(
 // 获取图标的属性
 const getViewBox: (element: Element) => string = R.pipe(getPathEmptyOr("0 0 1024 1024", ["attribs", "viewBox"]));
 // iconName根据trim_icon_prefix
-const getNameFun = (trimIconPrefix: string) => R.pipe(R.replace(new RegExp(`^${trimIconPrefix}`), ""), camelCase);
+const getNameFun = (trimIconPrefix: string) => R.pipe(R.replace(new RegExp(`^${trimIconPrefix}`), ""), myCamelcase);
 
 // 获取目录下的所有文件
 function getDirFile(dir: string): any[] {
@@ -63,7 +62,7 @@ function dirIcons(config: IconfontConfig) {
     if (fileInfo.ext === ".svg") {
       const icon: Iconfont = R.mergeLeft(
         {
-          name: camelCase(fileInfo.name),
+          name: getNameFun(config.trim_icon_prefix)(fileInfo.name),
         },
         getIconByFile(file)
       );
