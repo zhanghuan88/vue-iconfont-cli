@@ -9,10 +9,9 @@
     "allowJs": false,
     "declaration": false,
     "removeComments": true,
-    "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "noImplicitAny": true,
   },
   "include": ["src", "/src/vue-template/vue2.handlebars"],
   "exclude": ["node_modules", "build"]

@@ -10,12 +10,15 @@ export function successLog(msg: string) {
 export function errorLog(msg: string) {
   console.error(chalk.red(msg));
 }
+
 export function warnLog(msg: string) {
   console.warn(chalk.magenta(msg));
 }
+
 export function myCamelcase(msg: string) {
   return camelcase(msg, { preserveConsecutiveUppercase: true });
 }
+
 // null undefined 当前类型空值返回true
 export const isEmpty = R.either(R.isNil, R.isEmpty);
 // 返回 过滤掉某属性为空的函数

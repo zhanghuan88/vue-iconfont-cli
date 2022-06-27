@@ -106,7 +106,7 @@ npx iconfont-h5
 ### 图标多色彩
 多色彩的图标，如果不指定颜色值，图标将渲染原本的多色彩。如果你想设置为其他的颜色，那么设置一组你想要的颜色即可
 ```vue
-<colors-icont name="alipay" :color="['green', 'orange']"></colors-icont>
+<colors-icon name="alipay" :color="['green', 'orange']"></colors-icon>
 ```
 颜色组的数量以及排序，需要根据当前图标的信息来确定。您需要进入图标组件中查看并得出结论。
 

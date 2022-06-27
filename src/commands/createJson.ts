@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { join, resolve } from "node:path";
 import { existsSync } from "node:fs";
 import { copySync } from "fs-extra";
