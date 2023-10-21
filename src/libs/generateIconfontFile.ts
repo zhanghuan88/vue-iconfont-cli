@@ -13,15 +13,16 @@ function getTemplate(iconfontConfig: IconfontConfig) {
     } else {
       url = "../vue-template/vue2.handlebars";
     }
+  } else if (iconfontConfig.use_typescript) {
+    throw Error("not support vue3 typescript");
   } else {
-    throw Error("not support vue3");
+    url = "../vue-template/vue3.handlebars";
   }
   return R.pipe(
     R.useWith<string, string, string, string, string>(join, [R.identity, R.identity]),
     getFileContent,
     handlebars.compile
   )(__dirname, url);
-  // return handlebars.compile(content);
 }
 
 export default function generateIconfontFile(icons: Iconfont[], iconfontConfig: IconfontConfig) {

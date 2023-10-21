@@ -1,0 +1,67 @@
+<template>
+  <svg :viewBox="svg.viewBox" :style="style" v-bind="$attrs" v-html="svg.content"></svg>
+</template>
+
+<script>
+  export default {
+    name: "ColorsIcon",
+    props: {
+      size: {
+        type: Number,
+        default: {{size}},
+      },
+      unit: {
+        type: String,
+        default: "{{unit}}"
+      },
+      name: {
+        type: String,
+        required: true
+      },
+      colors: {
+        type: [String, Array]
+      }
+    },
+    computed: {
+      style() {
+        return {
+          width: `${this.size}${this.unit}`,
+          height: `${this.size}${this.unit}`,
+          fill: "currentColor"
+        };
+      },
+      svg() {
+        const getIconColor = (index, defaultColor) => {
+          if (typeof this.colors === "string") {
+            return this.colors || defaultColor;
+          }
+          if (
+            this.colors
+            && Object.prototype.toString.call(this.colors) === "[object Array]"
+            && typeof this.colors[index] === "string"
+          ) {
+            return this.colors[index] || defaultColor;
+          }
+          return defaultColor;
+        };
+        switch (this.name) {
+          {{#each icons}}
+            case "{{name}}":
+              return {
+                viewBox: "{{viewBox}}",
+                {{#each child}}
+                  {{#if @first}}content: `{{else}}          {{/if}}<path d="{{d}}"
+                       fill="${getIconColor({{@index}}, "{{fill}}")}"></path>{{#if @last}}`,{{/if}}
+                {{/each}}
+              };
+          {{/each}}
+          default:
+            return {
+              viewBox: "0 0 1024 1024",
+              content: ""
+            };
+        }
+      }
+    }
+  };
+</script>
